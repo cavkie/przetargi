@@ -10,7 +10,7 @@ from zoneinfo import ZoneInfo
 from . import archive
 from .geocode import geocode_all, nominatim_lookup
 from .http import PoliteClient
-from .market import apply_market, run_cli
+from .market import UNAVAILABLE, apply_market, run_cli
 from .models import SourceStatus
 from .sources import SOURCES
 
@@ -60,9 +60,19 @@ def run(data_dir: Path, site_dir: Path, today: str, sources=SOURCES, client=None
     _write_json(data_dir / "geocode.json", geocache)
 
     market_cache = _read_json(data_dir / "market.json", {})
-    warning = apply_market(offers, market_cache, cli=market_cli or run_cli, today=today)
+    stop_file = data_dir / "market_stop.json"  # a STOP is lifted only by a person deleting it
+    error = None
+    if stop_file.exists():
+        warning = UNAVAILABLE
+    else:
+        try:
+            warning = apply_market(offers, market_cache, cli=market_cli or run_cli, today=today)
+        except Exception as e:  # market data is optional; the page must still be built
+            warning, error = UNAVAILABLE, f"{type(e).__name__}: {e}"[:300]
+        if warning == UNAVAILABLE and error is None:
+            _write_json(stop_file, {"at": _now(), "reason": "deweloperuch STOP (exit code 3)"})
     statuses.append(SourceStatus("deweloperuch", ok=warning is None, count=0, at=_now(),
-                                 warning=warning))
+                                 warning=warning, error=error))
     _write_json(data_dir / "market.json", market_cache)
 
     archive.save(data_dir / "offers.json", offers)

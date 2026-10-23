@@ -67,3 +67,35 @@ def test_market_stop_reported(tmp_path):
                    geocode_lookup=lambda q: (54.0, 18.0), market_cli=cli, render=lambda *a: None)
     (m,) = [s for s in statuses if s.source == "deweloperuch"]
     assert m.ok is False and m.warning == "market data unavailable"
+
+
+def test_market_crash_still_renders(tmp_path):
+    renders = []
+
+    def cli(args):
+        raise ValueError("bad json")
+
+    statuses = run(tmp_path / "data", tmp_path / "site", "2026-10-23",
+                   sources=[Source("b", lambda c: [mk("b", "ul. Nowa 1/1")])], client=object(),
+                   geocode_lookup=lambda q: (54.0, 18.0), market_cli=cli,
+                   render=lambda *a: renders.append(a))
+    (m,) = [s for s in statuses if s.source == "deweloperuch"]
+    assert m.ok is False and len(renders) == 1
+
+
+def test_stop_persists_until_lifted_by_hand(tmp_path):
+    from przetargi.market import Stopped
+
+    def stop(args):
+        raise Stopped("429")
+
+    calls = []
+    src = [Source("b", lambda c: [mk("b", "ul. Nowa 1/1")])]
+    kw = dict(sources=src, client=object(), geocode_lookup=lambda q: (54.0, 18.0),
+              render=lambda *a: None)
+    run(tmp_path / "data", tmp_path / "site", "2026-10-23", market_cli=stop, **kw)
+    assert (tmp_path / "data" / "market_stop.json").exists()
+    statuses = run(tmp_path / "data", tmp_path / "site", "2026-10-24",
+                   market_cli=lambda a: calls.append(a) or {}, **kw)
+    (m,) = [s for s in statuses if s.source == "deweloperuch"]
+    assert calls == [] and m.ok is False and m.warning == "market data unavailable"

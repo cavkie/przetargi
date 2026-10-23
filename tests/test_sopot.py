@@ -80,3 +80,10 @@ def test_sopot_wykaz_candidates_and_offer():
 @pytest.mark.skipif(shutil.which("antiword") is None, reason="antiword not installed")
 def test_doc_to_text_returns_none_on_garbage():
     assert doc_to_text(b"not a word document") is None
+
+
+def test_sopot_result_and_rental_notices_skipped():
+    assert classify_title("Informacja o wynikach rokowań na sprzedaż lokalu mieszkalnego nr 2") == "skip"
+    assert classify_title("Informacja o wyniku I przetargu ustnego na sprzedaż lokalu mieszkalnego") == "skip"
+    assert classify_title("Przetarg na sprzedaż lokalu mieszkalnego nr 3 – UNIEWAŻNIONY") == "skip"
+    assert classify_title("Odwołanie przetargu na najem lokalu mieszkalnego nr 1 przy ul. Morskiej 5") == "skip"

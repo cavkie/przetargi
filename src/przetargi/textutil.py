@@ -94,7 +94,11 @@ def classify_type(text: str) -> PropType | None:
 def is_excluded_notice(title: str) -> bool:
     t = fold(title)
     return bool(
-        re.search(r"\bnajem|\bnajmu|dzierzaw|rozstrzygniet|zakonczon|wynik\w* przetarg|uniewaznien", t)
+        re.search(
+            r"\bnajem|\bnajmu|dzierzaw|rozstrzygniet|zakonczon|uniewazni"
+            r"|informacj\w* o wynik|wynik\w* (?:\w+ )?(?:przetarg|rokowan)",
+            t,
+        )
     )
 
 

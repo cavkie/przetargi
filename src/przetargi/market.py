@@ -9,6 +9,7 @@ import sys
 from pathlib import Path
 from typing import Callable
 
+from .archive import is_archived
 from .models import Offer
 from .places import AREA
 
@@ -28,13 +29,19 @@ def _executable() -> str:
 
 def run_cli(args: list[str]) -> dict:
     env = {**os.environ, "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1"}
-    r = subprocess.run([_executable(), *args, "--json"], capture_output=True, env=env, timeout=180)
+    try:
+        r = subprocess.run([_executable(), *args, "--json"], capture_output=True, env=env, timeout=180)
+    except (OSError, subprocess.TimeoutExpired) as e:
+        raise RuntimeError(f"deweloperuch {' '.join(args)}: {e}") from e
     stderr = r.stderr.decode("utf-8", errors="replace")
     if r.returncode == 3:
         raise Stopped(stderr.strip()[:300])
     if r.returncode != 0:
         raise RuntimeError(f"deweloperuch {' '.join(args)} exited {r.returncode}: {stderr[:300]}")
-    return json.loads(r.stdout.decode("utf-8"))
+    try:
+        return json.loads(r.stdout.decode("utf-8"))
+    except ValueError as e:
+        raise RuntimeError(f"deweloperuch {' '.join(args)}: unexpected output") from e
 
 
 def _months_before(today: str, n: int) -> str:
@@ -74,7 +81,7 @@ def apply_market(
 ) -> str | None:
     medians: dict[str, tuple[int, str] | None] = {}
     for key, o in offers.items():
-        if o.type != "flat" or not o.start_price:
+        if o.type != "flat" or not o.start_price or is_archived(o, today):
             continue
         try:
             if o.lat is not None and o.lng is not None and o.area_m2 and 10 <= o.area_m2 <= 500:
@@ -82,14 +89,13 @@ def apply_market(
                 if ck not in cache:
                     v = cli(["valuation", "estimate", "--lat", str(o.lat), "--lng", str(o.lng),
                              "--area", str(o.area_m2), "--limit", "0"])
-                    if v.get("estimated_value"):
-                        cache[ck] = {
-                            "gap": round((o.start_price / v["estimated_value"] - 1) * 100, 1),
-                            "basis": "nearby",
-                            "low": bool(v.get("low_confidence")),
-                            "period": f"{v.get('period_months')} mies.",
-                        }
-                if ck in cache:
+                    cache[ck] = {
+                        "gap": round((o.start_price / v["estimated_value"] - 1) * 100, 1),
+                        "basis": "nearby",
+                        "low": bool(v.get("low_confidence")),
+                        "period": f"{v.get('period_months')} mies.",
+                    } if v.get("estimated_value") else {"none": True}  # never re-ask a miss
+                if not cache[ck].get("none"):
                     _apply(o, cache[ck])
                     continue
             slug = AREA.get(o.city)

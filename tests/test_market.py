@@ -84,3 +84,33 @@ def test_market_low_confidence_flag():
     offers = {"k": mk()}
     apply_market(offers, {}, cli=LowCli(), today=TODAY)
     assert offers["k"].market_low_confidence is True
+
+
+def test_market_archived_rows_skipped():
+    cli = FakeCli()
+    offers = {"k": mk(auction_date="2026-10-01", last_seen=TODAY)}
+    apply_market(offers, {}, cli=cli, today=TODAY)
+    assert cli.calls == []
+
+
+def test_market_valuation_without_value_is_cached():
+    class NoValue(FakeCli):
+        def __call__(self, args):
+            self.calls.append(args)
+            return {"estimated_value": None} if args[0] == "valuation" else TRANSACTIONS
+
+    cache = {}
+    apply_market({"k": mk()}, cache, cli=NoValue(), today=TODAY)
+    cli = NoValue()
+    apply_market({"k": mk()}, cache, cli=cli, today=TODAY)
+    assert [c[0] for c in cli.calls] == ["stats"]  # only the per-run city median, no new valuation
+
+
+def test_run_cli_missing_executable_is_runtime_error(monkeypatch):
+    import pytest
+
+    from przetargi import market
+
+    monkeypatch.setattr(market, "_executable", lambda: "Z:/nonexistent/deweloperuch")
+    with pytest.raises(RuntimeError):
+        market.run_cli(["stats", "transactions", "gdansk"])

@@ -32,6 +32,8 @@ MAX_ITEMS = 200
 
 def classify_title(title: str) -> str:
     if is_cancellation(title):
+        if re.search(r"\bnajem|\bnajmu|dzierzaw", fold(title)):
+            return "skip"  # a cancelled rental must not cancel a sale at the same address
         return "cancel" if classify_type(title) else "skip"
     if is_excluded_notice(title):
         return "skip"

@@ -504,10 +504,10 @@
   "price_drop": false,
   "lat": null,
   "lng": null,
-  "market_gap_pct": -26.4,
-  "market_basis": "city_median",
+  "market_gap_pct": null,
+  "market_basis": null,
   "market_low_confidence": false,
-  "market_period": "2026-01"
+  "market_period": null
  },
  "um-sopot|niepodleglosci 851/2": {
   "source": "um-sopot",

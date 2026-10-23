@@ -63,20 +63,28 @@ def parse_auction_pdf(pdf_bytes: bytes, notice_url: str) -> list[Offer]:
     with pdfplumber.open(io.BytesIO(pdf_bytes)) as pdf:
         first_text = pdf.pages[0].extract_text() or ""
         auction_date = parse_date(first_text)
+        lokal = False
         for page in pdf.pages:
             for table in page.extract_tables():
                 if not table or not table[0]:
                     continue
-                lokal = _is_lokal_table(table[0])
-                rows = table[2:]  # two header rows
-                for i, row in enumerate(rows):
-                    if not row or not re.fullmatch(r"\d+\.", (row[0] or "").strip()):
-                        continue
-                    nxt = rows[i + 1] if i + 1 < len(rows) else [None] * len(row)
-                    offer = _row_to_offer(row, nxt, lokal, auction_date, notice_url, stem)
-                    if offer:
-                        offers.append(offer)
+                if any(re.search(r"cena wywo", fold(c or "")) for c in table[0]):
+                    lokal = _is_lokal_table(table[0])  # a header row; continuations keep the last kind
+                offers.extend(table_offers(table, lokal, auction_date, notice_url, stem))
     return offers
+
+
+def table_offers(rows: list[list], lokal: bool, auction_date, notice_url: str, stem: str) -> list[Offer]:
+    """Offers from one extracted table; header rows are skipped by their missing "N." number."""
+    out = []
+    for i, row in enumerate(rows):
+        if not row or not re.fullmatch(r"\d+\.", (row[0] or "").strip()):
+            continue
+        nxt = rows[i + 1] if i + 1 < len(rows) else [None] * len(row)
+        offer = _row_to_offer(row, nxt, lokal, auction_date, notice_url, stem)
+        if offer:
+            out.append(offer)
+    return out
 
 
 def _row_to_offer(row, nxt, lokal, auction_date, notice_url, stem) -> Offer | None:

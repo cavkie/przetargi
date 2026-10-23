@@ -93,7 +93,9 @@
     } else dash(td);
     tr.appendChild(td);
 
-    td = el("td"); td.appendChild(link(r.notice_url, r.source_label + " ↗")); tr.appendChild(td);
+    td = el("td");
+    td.appendChild(r.notice_url ? link(r.notice_url, r.source_label + " ↗") : document.createTextNode(r.source_label));
+    tr.appendChild(td);
     return tr;
   }
 

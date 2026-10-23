@@ -73,3 +73,33 @@ def test_save_load_roundtrip(tmp_path):
     save(p, a)
     assert load(p) == a
     assert load(tmp_path / "missing.json") == {}
+
+
+def test_merge_same_run_old_and_new_notice():
+    def fetched():  # the site still lists the 1st-auction notice next to the newer one
+        return [mk(status="rokowania", start_price=270000, auction_date="2026-12-10",
+                   notice_url="https://x/2.pdf", source_id="n2"),
+                mk(start_price=300000, auction_date="2026-10-01", notice_url="https://x/1.pdf")]
+
+    b = merge(merge({}, fetched(), "2026-10-23"), fetched(), "2026-10-24")
+    (o,) = b.values()
+    assert o.start_price == 270000 and o.auction_date == "2026-12-10" and o.status == "rokowania"
+    assert o.price_drop is True and len(o.price_history) == 2
+    assert not is_archived(o, "2026-10-24")
+
+
+def test_cancellation_sticks():
+    a = merge({}, [mk(), mk(status="cancelled", start_price=None, notice_url="https://x/odw")],
+              "2026-10-20")
+    (o,) = a.values()
+    assert o.status == "cancelled"
+    b = merge(a, [mk()], "2026-10-21")  # the original notice is still listed
+    assert next(iter(b.values())).status == "cancelled"
+
+
+def test_relisting_after_cancellation():
+    a = merge({}, [mk(), mk(status="cancelled", start_price=None)], "2026-10-20")
+    b = merge(a, [mk(auction_date="2027-01-15", notice_url="https://x/3.pdf", start_price=450000)],
+              "2026-11-20")
+    (o,) = b.values()
+    assert o.status == "auction" and o.auction_date == "2027-01-15"

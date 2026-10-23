@@ -34,9 +34,16 @@ def streetview_url(o: Offer) -> str | None:
     return f"https://www.google.com/maps/@?api=1&map_action=pano&viewpoint={o.lat},{o.lng}"
 
 
+def _http(url: str | None) -> str | None:
+    """Scraped links go on a public page: allow only web links, never javascript: or data:."""
+    return url if url and url.lower().startswith(("https://", "http://")) else None
+
+
 def _row(o: Offer, today: str) -> dict:
     d = asdict(o)
     d.update(
+        notice_url=_http(o.notice_url),
+        photo_url=_http(o.photo_url),
         maps=maps_url(o),
         streetview=streetview_url(o),
         new=o.first_seen == today,

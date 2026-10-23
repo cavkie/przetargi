@@ -68,3 +68,9 @@ def test_failed_source_shown(tmp_path):
 def test_data_is_escaped(tmp_path):
     html = _render(tmp_path, {"k": mk(raw_title="</script><script>alert(1)</script>")})
     assert "</script><script>alert(1)" not in html
+
+
+def test_non_http_links_dropped(tmp_path):
+    bad = mk(notice_url="javascript:alert(1)//cloudgdansk.pdf", photo_url="data:image/svg+xml,x")
+    (row,) = _data(_render(tmp_path, {"k": bad}))["offers"]
+    assert row["notice_url"] is None and row["photo_url"] is None

@@ -45,3 +45,14 @@ def test_gdansk_list_and_article_links():
     assert pdfs == [
         "https://download.cloudgdansk.pl/gdansk-pl/d/202609282580/ogloszenie-o-przetargach-nieograniczonych-planowanych-na-dzien-30-11-2026r-gazeta-wyborcza-z-dnia-23-09-2026r.pdf"
     ]
+
+
+def test_gdansk_continuation_table_without_header():
+    from przetargi.sources.gdansk import table_offers
+
+    row = ["4.", "Gdańsk – Oliwa\nul. Leśna 2 lokal nr 7\nI piętro", "Działka nr 1",
+           "40,00 m2", "400.000 zł", "40.000 zł", "Własność", "Lokal obejmujący 2 pokoje"]
+    nxt = ["", "", "", "", "", "4.000 zł", "Przetarg ustny\nnieograniczony\ngodz. 11:00", ""]
+    offers = table_offers([row, nxt], True, "2026-11-30", "https://x/c.pdf", "c")
+    assert len(offers) == 1 and offers[0].start_price == 400000
+    assert offers[0].auction_kind == "Przetarg ustny nieograniczony"

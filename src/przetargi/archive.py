@@ -27,8 +27,12 @@ def _round(o: Offer, run_date: str) -> Round:
 
 def _merge_one(old: Offer, new: Offer, run_date: str) -> None:
     old.last_seen = run_date
-    if new.status == "planned" and old.status in ("auction", "rokowania"):
+    if new.status == "planned" and old.status in ("auction", "rokowania", "cancelled"):
         return  # a wykaz never overwrites a real auction
+    if old.status == "cancelled" and new.status != "cancelled":
+        # the cancelled notice often stays listed; only a later auction is a re-listing
+        if not (new.auction_date and new.auction_date > (old.auction_date or "")):
+            return
     if new.status == "cancelled":
         old.status = "cancelled"
         old.notice_url = new.notice_url or old.notice_url
@@ -38,10 +42,8 @@ def _merge_one(old: Offer, new: Offer, run_date: str) -> None:
         value = getattr(new, f)
         if value is not None and value != "":
             setattr(old, f, value)
-    last = old.price_history[-1] if old.price_history else None
-    if last is None or (last.start_price, last.status, last.auction_date) != (
-        old.start_price, old.status, old.auction_date
-    ):
+    seen = {(r.start_price, r.status, r.auction_date) for r in old.price_history}
+    if (old.start_price, old.status, old.auction_date) not in seen:
         old.price_history.append(_round(old, run_date))
     prices = [r.start_price for r in old.price_history if r.start_price is not None]
     old.price_drop = len(prices) >= 2 and prices[-1] < prices[-2]
@@ -49,6 +51,9 @@ def _merge_one(old: Offer, new: Offer, run_date: str) -> None:
 
 def merge(existing: dict[str, Offer], fetched: list[Offer], run_date: str) -> dict[str, Offer]:
     out = dict(existing)
+    # Sites keep old notices listed: apply each property's notices oldest first, cancellations
+    # last, so the newest round wins no matter the order the site lists them in.
+    fetched = sorted(fetched, key=lambda o: (o.status == "cancelled", o.auction_date or "9999"))
     for o in fetched:
         k = offer_key(o)
         if k in out:
