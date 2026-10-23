@@ -16,6 +16,11 @@ def test_parse_numbers_and_dates():
     assert parse_price("brak") is None
     assert parse_area("48,37 m²") == 48.37
     assert parse_area("pow. użytkowa 61,2 m2") == 61.2
+    assert parse_area("pow. 1 048,37 m²") == 1048.37
+    assert parse_area("pow. 1 048,37 m²") == 1048.37
+    assert parse_area("o pow. 1.144 m2") == 1144
+    assert parse_area("48.5 m2") == 48.5
+    assert parse_area("lokal nr 3 48,37 m²") == 48.37
     assert parse_date("26 października 2026 r.") == "2026-10-26"
     assert parse_date("26.10.2026") == "2026-10-26"
     assert parse_date("dnia 3 listopada 2026") == "2026-11-03"

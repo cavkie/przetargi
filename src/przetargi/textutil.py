@@ -51,10 +51,14 @@ def parse_price(s: str | None) -> int | None:
 def parse_area(s: str | None) -> float | None:
     if not s:
         return None
-    m = re.search(r"(\d+(?:[,.]\d+)?)\s*m\s*(?:²|2|\^2|kw)", s)
+    # "1 048,37" / "1.144" use thousand separators; "48.5" is a decimal point
+    m = re.search(
+        r"(?<![\d,.])(\d{1,3}(?:[   .]\d{3})+(?:,\d+)?|\d+(?:[,.]\d+)?)\s*m\s*(?:²|2|\^2|kw)",
+        s,
+    )
     if not m:
         return None
-    return float(m.group(1).replace(",", "."))
+    return _to_number(m.group(1))
 
 
 def parse_date(s: str | None) -> str | None:
