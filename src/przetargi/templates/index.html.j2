@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Przetargi Trójmiasto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>{{ css|safe }}</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="head">
+    <div>
+      <h1>Przetargi: mieszkania i domy</h1>
+      <p class="sub">Gdańsk, Sopot i okolice · sprzedaż przez miasta, PKP i AMW</p>
+    </div>
+    <p class="meta">Aktualizacja {{ updated }} · <b>{{ active }}</b> aktywnych · <b class="newcount">{{ new }}</b> nowych</p>
+  </header>
+
+  <ul class="statuses" aria-label="Stan źródeł">
+    {% for s in statuses %}
+    <li class="{{ 'bad' if not s.ok else ('warn' if s.warning else 'ok') }}">
+      <span class="dot" aria-hidden="true"></span>
+      <b>{{ source_labels.get(s.source, s.source) }}</b>
+      {% if not s.ok %}błąd: {{ s.error or s.warning }}{% elif s.warning %}{{ s.warning }}{% elif s.source in source_labels %}{{ s.count }} ogłoszeń{% else %}ok{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+
+  <nav class="controls" aria-label="Filtry">
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-active" aria-selected="true" data-tab="active">Aktywne</button>
+      <button role="tab" id="tab-archive" aria-selected="false" data-tab="archive">Archiwum</button>
+    </div>
+    <label>Miasto <select id="f-city"><option value="">wszystkie</option></select></label>
+    <label>Typ <select id="f-type"><option value="">wszystkie</option><option value="flat">mieszkanie</option><option value="house">dom</option></select></label>
+    <label>Status <select id="f-status"><option value="">wszystkie</option><option value="planned">planowany</option><option value="auction">przetarg</option><option value="rokowania">rokowania</option><option value="cancelled">odwołany</option></select></label>
+    <label class="check"><input type="checkbox" id="f-new"> tylko nowe</label>
+  </nav>
+
+  <div class="tablewrap">
+    <table id="offers">
+      <thead><tr>
+        <th data-key="status">Status</th>
+        <th data-key="auction_date">Data przetargu</th>
+        <th data-key="address">Adres</th>
+        <th data-key="city">Miasto</th>
+        <th data-key="type">Typ</th>
+        <th data-key="area_m2" class="num">m²</th>
+        <th data-key="start_price" class="num">Cena wywoławcza</th>
+        <th data-key="price_per_m2" class="num">zł/m²</th>
+        <th data-key="market_gap_pct" class="num">vs rynek</th>
+        <th data-key="deposit" class="num">Wadium</th>
+        <th>Zdjęcie</th>
+        <th data-key="source_label">Źródło</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+    <p id="empty" class="empty" hidden>Brak ogłoszeń dla wybranych filtrów.</p>
+  </div>
+
+  <section class="manual">
+    <h2>Sprawdź ręcznie</h2>
+    <p class="sub">Te serwisy blokują automatyczne odczyty, więc nie ma ich w tabeli.</p>
+    <ul>
+      {% for name, url, note in manual_links %}
+      <li><a href="{{ url }}" target="_blank" rel="noopener">{{ name }}</a> <span>{{ note }}</span></li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <footer class="foot">{{ footer }}</footer>
+</main>
+<script id="data" type="application/json">{{ data|safe }}</script>
+<script>{{ js|safe }}</script>
+</body>
+</html>

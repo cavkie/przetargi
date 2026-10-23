@@ -1,0 +1,42 @@
+[
+ {
+  "at": "2026-10-23 12:00",
+  "count": 6,
+  "error": null,
+  "ok": true,
+  "source": "um-gdansk",
+  "warning": null
+ },
+ {
+  "at": "2026-10-23 12:00",
+  "count": 6,
+  "error": null,
+  "ok": true,
+  "source": "um-sopot",
+  "warning": null
+ },
+ {
+  "at": "2026-10-23 12:01",
+  "count": 6,
+  "error": null,
+  "ok": true,
+  "source": "pkp",
+  "warning": null
+ },
+ {
+  "at": "2026-10-23 12:01",
+  "count": 0,
+  "error": null,
+  "ok": true,
+  "source": "amw",
+  "warning": "0 items: format changed?"
+ },
+ {
+  "at": "2026-10-23 12:01",
+  "count": 0,
+  "error": null,
+  "ok": true,
+  "source": "deweloperuch",
+  "warning": null
+ }
+]

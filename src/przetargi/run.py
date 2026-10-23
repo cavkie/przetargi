@@ -47,7 +47,8 @@ def run(data_dir: Path, site_dir: Path, today: str, sources=SOURCES, client=None
             continue
         offers = archive.merge(offers, fetched, today)
         statuses.append(SourceStatus(src.name, ok=True, count=len(fetched), at=_now(),
-                                     warning=None if fetched else "0 items: format changed?"))
+                                     warning=None if fetched or not src.expect_items
+                                     else "0 items: format changed?"))
 
     archive.save(data_dir / "offers.json", offers)
 

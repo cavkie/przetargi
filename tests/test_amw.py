@@ -14,6 +14,13 @@ def test_amw_list_keeps_sales_in_area():
     assert dict(items)[next(u for u in urls if "11871" in u)] == "Gdynia"
 
 
+def test_amw_list_without_rows_is_an_error():
+    import pytest
+
+    with pytest.raises(ValueError):
+        parse_list("<html><body>Przerwa techniczna</body></html>", BASE)
+
+
 def test_amw_detail_land_is_not_residential():
     html = (FIX / "detail_gdynia_11871.html").read_text(encoding="utf-8")
     assert parse_detail(html, BASE + "/x-11871", "Gdynia") is None

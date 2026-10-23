@@ -40,6 +40,12 @@ def test_zero_items_is_warning(tmp_path):
     assert s.ok is True and s.count == 0 and s.warning == "0 items: format changed?"
 
 
+def test_zero_items_expected_no_warning(tmp_path):
+    (s,) = [x for x in _run(tmp_path, [Source("a", lambda c: [], expect_items=False)], [])
+            if x.source == "a"]
+    assert s.ok is True and s.warning is None
+
+
 def test_run_writes_files(tmp_path):
     renders = []
     _run(tmp_path, [Source("b", lambda c: [mk("b", "ul. Nowa 1/1")])], renders)

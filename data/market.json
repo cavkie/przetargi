@@ -1,0 +1,56 @@
+{
+ "pkp|elblaska 89/1|260000|110.72": {
+  "basis": "nearby",
+  "gap": -87.2,
+  "low": false,
+  "period": "24 mies."
+ },
+ "pkp|elblaska 89/2|200000|110.72": {
+  "basis": "nearby",
+  "gap": -90.2,
+  "low": false,
+  "period": "24 mies."
+ },
+ "pkp|junacka 5/5|250000|41.92": {
+  "basis": "nearby",
+  "gap": -33.7,
+  "low": false,
+  "period": "24 mies."
+ },
+ "um-gdansk|floriana ceynowy 2/5|220000|16.5": {
+  "basis": "nearby",
+  "gap": -19.1,
+  "low": false,
+  "period": "24 mies."
+ },
+ "um-gdansk|kolodziejska 7/9b/5|400000|19.52": {
+  "basis": "nearby",
+  "gap": 16.3,
+  "low": false,
+  "period": "24 mies."
+ },
+ "um-gdansk|ks. mariana goreckiego 8/3,4a|720000|94.47": {
+  "basis": "nearby",
+  "gap": -8.1,
+  "low": false,
+  "period": "24 mies."
+ },
+ "um-gdansk|teofila lenartowicza 3/5|300000|47.86": {
+  "basis": "nearby",
+  "gap": -36.6,
+  "low": false,
+  "period": "24 mies."
+ },
+ "um-gdansk|uczniowska 37/4|500000|55.8": {
+  "basis": "nearby",
+  "gap": -46.9,
+  "low": false,
+  "period": "24 mies."
+ },
+ "um-sopot|armii krajowej 61/1|850000|65.2": {
+  "basis": "nearby",
+  "gap": -16.9,
+  "low": false,
+  "period": "24 mies."
+ }
+}

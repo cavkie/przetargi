@@ -19,8 +19,11 @@ LIST_URL = f"{BASE}/wyniki-wyszukiwania/page,0,limit,200,zone,82"
 def parse_list(html: str, base_url: str) -> list[tuple[str, str]]:
     """(detail url, canonical city) of sales in the monitored area."""
     soup = BeautifulSoup(html, "lxml")
+    rows = soup.select("div.element")
+    if not rows:  # Pomorskie always has some AMW tenders; none means the layout changed
+        raise ValueError("AMW list has no result rows")
     out = []
-    for el in soup.select("div.element"):
+    for el in rows:
         link = el.select_one("h2 a[href]")
         if not link:
             continue
