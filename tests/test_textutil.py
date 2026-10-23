@@ -31,6 +31,9 @@ def test_classify_type():
     assert classify_type("sprzedaż lokalu mieszkalnego nr 4") == "flat"
     assert classify_type("spółdzielcze własnościowe prawo do lokalu") == "flat"
     assert classify_type("nieruchomość zabudowana budynkiem mieszkalnym jednorodzinnym") == "house"
+    assert classify_type(
+        "lokal mieszkalny nr 1; działka zabudowana budynkiem mieszkalnym o 5 lokalach mieszkalnych"
+    ) == "flat"
     assert classify_type("lokal użytkowy") is None
     assert classify_type("nieruchomość niezabudowana") is None
     assert classify_type("garaż") is None

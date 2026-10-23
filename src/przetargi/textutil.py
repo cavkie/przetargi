@@ -82,11 +82,12 @@ def normalise_address(s: str) -> str:
 
 def classify_type(text: str) -> PropType | None:
     t = fold(text)
+    # a flat is often sold "in a plot built with a residential building", so flats win
+    if re.search(r"lokal\w* mieszkaln|prawo do lokalu|\bmieszkanie\b", t):
+        return "flat"
     if re.search(r"zabudowan\w* budynk\w* mieszkaln|dom\w* jednorodzin|\bdom\b|domu mieszkaln", t):
         if "niezabudowan" not in t:
             return "house"
-    if re.search(r"lokal\w* mieszkaln|prawo do lokalu|\bmieszkanie\b", t):
-        return "flat"
     return None
 
 
