@@ -31,7 +31,8 @@
   "market_gap_pct": -87.2,
   "market_basis": "nearby",
   "market_low_confidence": false,
-  "market_period": "24 mies."
+  "market_period": "24 mies.",
+  "share": null
  },
  "pkp|elblaska 89/2": {
   "source": "pkp",
@@ -65,7 +66,8 @@
   "market_gap_pct": -90.2,
   "market_basis": "nearby",
   "market_low_confidence": false,
-  "market_period": "24 mies."
+  "market_period": "24 mies.",
+  "share": null
  },
  "pkp|jana z kolna 29/1": {
   "source": "pkp",
@@ -99,7 +101,8 @@
   "market_gap_pct": null,
   "market_basis": null,
   "market_low_confidence": false,
-  "market_period": null
+  "market_period": null,
+  "share": null
  },
  "pkp|junacka 5/5": {
   "source": "pkp",
@@ -133,7 +136,8 @@
   "market_gap_pct": -33.7,
   "market_basis": "nearby",
   "market_low_confidence": false,
-  "market_period": "24 mies."
+  "market_period": "24 mies.",
+  "share": null
  },
  "pkp|osada kolejowa 13/1": {
   "source": "pkp",
@@ -167,7 +171,8 @@
   "market_gap_pct": null,
   "market_basis": null,
   "market_low_confidence": false,
-  "market_period": null
+  "market_period": null,
+  "share": null
  },
  "pkp|osada kolejowa 13/14": {
   "source": "pkp",
@@ -201,7 +206,8 @@
   "market_gap_pct": null,
   "market_basis": null,
   "market_low_confidence": false,
-  "market_period": null
+  "market_period": null,
+  "share": null
  },
  "um-gdansk|floriana ceynowy 2/5": {
   "source": "um-gdansk",
@@ -235,7 +241,8 @@
   "market_gap_pct": -19.1,
   "market_basis": "nearby",
   "market_low_confidence": false,
-  "market_period": "24 mies."
+  "market_period": "24 mies.",
+  "share": null
  },
  "um-gdansk|kolodziejska 7/9b/5": {
   "source": "um-gdansk",
@@ -269,7 +276,8 @@
   "market_gap_pct": 16.3,
   "market_basis": "nearby",
   "market_low_confidence": false,
-  "market_period": "24 mies."
+  "market_period": "24 mies.",
+  "share": null
  },
  "um-gdansk|ks. mariana goreckiego 8/3,4a": {
   "source": "um-gdansk",
@@ -303,7 +311,8 @@
   "market_gap_pct": -8.1,
   "market_basis": "nearby",
   "market_low_confidence": false,
-  "market_period": "24 mies."
+  "market_period": "24 mies.",
+  "share": null
  },
  "um-gdansk|s. wyspianskiego 15/4": {
   "source": "um-gdansk",
@@ -337,7 +346,8 @@
   "market_gap_pct": -22.3,
   "market_basis": "city_median",
   "market_low_confidence": false,
-  "market_period": "2026-07"
+  "market_period": "2026-07",
+  "share": null
  },
  "um-gdansk|teofila lenartowicza 3/5": {
   "source": "um-gdansk",
@@ -371,7 +381,8 @@
   "market_gap_pct": -36.6,
   "market_basis": "nearby",
   "market_low_confidence": false,
-  "market_period": "24 mies."
+  "market_period": "24 mies.",
+  "share": null
  },
  "um-gdansk|uczniowska 37/4": {
   "source": "um-gdansk",
@@ -405,7 +416,8 @@
   "market_gap_pct": -46.9,
   "market_basis": "nearby",
   "market_low_confidence": false,
-  "market_period": "24 mies."
+  "market_period": "24 mies.",
+  "share": null
  },
  "um-sopot|armii krajowej 61/1": {
   "source": "um-sopot",
@@ -439,7 +451,8 @@
   "market_gap_pct": -16.9,
   "market_basis": "nearby",
   "market_low_confidence": false,
-  "market_period": "24 mies."
+  "market_period": "24 mies.",
+  "share": null
  },
  "um-sopot|armii krajowej 74": {
   "source": "um-sopot",
@@ -473,7 +486,8 @@
   "market_gap_pct": null,
   "market_basis": null,
   "market_low_confidence": false,
-  "market_period": null
+  "market_period": null,
+  "share": null
  },
  "um-sopot|helskiej 9-11/3": {
   "source": "um-sopot",
@@ -507,7 +521,8 @@
   "market_gap_pct": null,
   "market_basis": null,
   "market_low_confidence": false,
-  "market_period": null
+  "market_period": null,
+  "share": null
  },
  "um-sopot|niepodleglosci 851/2": {
   "source": "um-sopot",
@@ -541,7 +556,8 @@
   "market_gap_pct": null,
   "market_basis": null,
   "market_low_confidence": false,
-  "market_period": null
+  "market_period": null,
+  "share": null
  },
  "um-sopot|niepodleglosci 851/4": {
   "source": "um-sopot",
@@ -575,6 +591,7 @@
   "market_gap_pct": null,
   "market_basis": null,
   "market_low_confidence": false,
-  "market_period": null
+  "market_period": null,
+  "share": null
  }
 }
