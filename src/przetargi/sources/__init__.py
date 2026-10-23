@@ -15,9 +15,9 @@ class Source:
 
 
 def _registry() -> list[Source]:
-    from . import gdansk
+    from . import amw, gdansk, pkp, sopot
 
-    return [Source(gdansk.NAME, gdansk.fetch)]
+    return [Source(m.NAME, m.fetch) for m in (gdansk, sopot, pkp, amw)]
 
 
 SOURCES: list[Source] = _registry()
