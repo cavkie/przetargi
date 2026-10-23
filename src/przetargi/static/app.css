@@ -52,6 +52,7 @@ tbody tr:hover { background: var(--accent-soft); }
 .pill.planned { background: transparent; border: 1px dashed var(--muted); color: var(--muted); }
 .pill.cancelled { background: transparent; color: var(--bad); border: 1px solid var(--bad); }
 .newtag { font-size: .66rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--new); background: var(--new-soft); padding: 1px 5px; border-radius: 4px; margin-left: 6px; }
+.share { font-size: .7rem; font-weight: 600; color: var(--warn); border: 1px solid var(--warn); border-radius: 4px; padding: 0 5px; margin-left: 6px; cursor: help; }
 .addr a { color: var(--fg); font-weight: 500; }
 .addr small { display: block; color: var(--muted); }
 .drop { color: var(--good); margin-left: 4px; cursor: help; }

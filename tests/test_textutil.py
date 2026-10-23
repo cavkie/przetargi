@@ -52,3 +52,19 @@ def test_notice_flags():
     assert not is_excluded_notice(
         "II publiczny przetarg ustny nieograniczony na sprzedaż lokalu mieszkalnego"
     )
+
+
+def test_parse_share():
+    from przetargi.textutil import parse_share
+
+    assert parse_share("Przetarg na sprzedaż udziału 1/2 w lokalu mieszkalnym nr 4") == "1/2"
+    assert parse_share("sprzedaż udziału wynoszącego 1/3 części w nieruchomości zabudowanej "
+                       "budynkiem mieszkalnym") == "1/3"
+    assert parse_share("udział 3 / 8 we własnościowym spółdzielczym prawie do lokalu") == "3/8"
+    # every flat comes with a share in the common parts: that is not a share sale
+    assert parse_share("Lokal mieszkalny wraz z udziałem wynoszącym 2230/10000 w częściach "
+                       "wspólnych budynku") is None
+    assert parse_share("wraz z udziałem 20/100 niewydzielonych części w prawie własności "
+                       "nieruchomości wspólnej") is None
+    assert parse_share("z udziałem 1/2 w nieruchomości wspólnej") is None
+    assert parse_share("lokal mieszkalny nr 4") is None

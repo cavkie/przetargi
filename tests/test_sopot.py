@@ -87,3 +87,13 @@ def test_sopot_result_and_rental_notices_skipped():
     assert classify_title("Informacja o wyniku I przetargu ustnego na sprzedaż lokalu mieszkalnego") == "skip"
     assert classify_title("Przetarg na sprzedaż lokalu mieszkalnego nr 3 – UNIEWAŻNIONY") == "skip"
     assert classify_title("Odwołanie przetargu na najem lokalu mieszkalnego nr 1 przy ul. Morskiej 5") == "skip"
+
+
+def test_sopot_share_sale_marked():
+    art = json.dumps({"id": "1", "link": "a,1,x.html", "content": "",
+                      "title": "Przetarg ustny nieograniczony na sprzedaż udziału 1/2 w lokalu "
+                               "mieszkalnym nr 4 położonego w budynku przy ul. Morskiej 5 w Sopocie"})
+    o = parse_article(art, None)
+    assert o.share == "1/2" and o.type == "flat"
+    plain = parse_article(_read("article25322.json"), _read("article25322.txt"))
+    assert plain.share is None  # "udział 20/100 ... nieruchomości wspólnej" is not a share sale

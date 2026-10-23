@@ -58,7 +58,9 @@
     tr.appendChild(td);
 
     tr.appendChild(el("td", {}, r.city));
-    tr.appendChild(el("td", {}, TYPE[r.type]));
+    td = el("td", {}, TYPE[r.type]);
+    if (r.share) td.appendChild(el("span", { "class": "share", title: "Sprzedaż udziału, nie całej nieruchomości" }, "udział " + r.share));
+    tr.appendChild(td);
     td = el("td", { "class": "num" }); r.area_m2 == null ? dash(td) : (td.textContent = String(r.area_m2).replace(".", ",")); tr.appendChild(td);
 
     td = el("td", { "class": "num" }, money(r.start_price));
@@ -67,7 +69,10 @@
       td.appendChild(el("span", { "class": "drop", title: "Obniżka ceny\n" + hist }, "↓"));
     }
     tr.appendChild(td);
-    tr.appendChild(el("td", { "class": "num" }, money(r.price_per_m2)));
+    var WHOLE = r.share ? " (udział " + r.share + " przeliczony na całość)" : "";
+    td = el("td", { "class": "num" }, money(r.price_per_m2));
+    if (r.share && r.price_per_m2 != null) td.title = "Cena za m² całej nieruchomości" + WHOLE;
+    tr.appendChild(td);
 
     td = el("td", { "class": "num" });
     if (r.market_gap_pct == null) {
@@ -78,7 +83,7 @@
       td.textContent = (r.market_low_confidence ? "≈ " : "") + (g > 0 ? "+" : g < 0 ? "−" : "") + Math.abs(Math.round(g)) + "%";
       td.className += g < 0 ? " gap-neg" : " gap-pos";
       td.title = (r.market_basis === "nearby" ? "Wycena z transakcji w okolicy (" : "Mediana ceny transakcyjnej miasta (") +
-        r.market_period + ")" + (r.market_low_confidence ? ", mało transakcji porównawczych" : "");
+        r.market_period + ")" + (r.market_low_confidence ? ", mało transakcji porównawczych" : "") + WHOLE;
     }
     tr.appendChild(td);
     tr.appendChild(el("td", { "class": "num" }, money(r.deposit)));

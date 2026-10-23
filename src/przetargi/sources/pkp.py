@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 from ..http import PoliteClient
 from ..models import Offer
 from ..places import canonical_city
-from ..textutil import classify_type, fold, parse_area, parse_date, parse_price
+from ..textutil import classify_type, fold, parse_area, parse_date, parse_price, parse_share
 
 NAME = "pkp"
 SITE = "https://www.pkp.pl"
@@ -95,6 +95,7 @@ def parse_offer(html: str, item: PkpItem) -> Offer | None:
         notice_url=OFFER_URL.format(id=item.id),
         photo_url=item.photo_url,
         raw_title=f"{item.city}, {item.address}",
+        share=parse_share(text),
         lat=item.lat,
         lng=item.lng,
     )

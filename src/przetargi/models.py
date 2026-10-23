@@ -43,12 +43,25 @@ class Offer:
     market_basis: Literal["nearby", "city_median"] | None = None
     market_low_confidence: bool = False
     market_period: str | None = None
+    share: str | None = None  # "1/2" when only a share (udział) of the property is sold
+
+    @property
+    def share_fraction(self) -> float:
+        if not self.share:
+            return 1.0
+        num, den = (int(x) for x in self.share.split("/"))
+        return num / den if den and 0 < num <= den else 1.0
+
+    @property
+    def whole_price(self) -> int | None:
+        """The starting price scaled to the whole property, so shares compare like flats."""
+        return round(self.start_price / self.share_fraction) if self.start_price else None
 
     @property
     def price_per_m2(self) -> int | None:
         if not self.start_price or not self.area_m2:
             return None
-        return round(self.start_price / self.area_m2)
+        return round(self.whole_price / self.area_m2)
 
     def to_dict(self) -> dict:
         return asdict(self)

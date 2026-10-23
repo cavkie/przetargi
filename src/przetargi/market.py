@@ -90,7 +90,7 @@ def apply_market(
                     v = cli(["valuation", "estimate", "--lat", str(o.lat), "--lng", str(o.lng),
                              "--area", str(o.area_m2), "--limit", "0"])
                     cache[ck] = {
-                        "gap": round((o.start_price / v["estimated_value"] - 1) * 100, 1),
+                        "gap": round((o.whole_price / v["estimated_value"] - 1) * 100, 1),
                         "basis": "nearby",
                         "low": bool(v.get("low_confidence")),
                         "period": f"{v.get('period_months')} mies.",

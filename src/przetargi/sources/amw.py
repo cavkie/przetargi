@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 from ..http import PoliteClient
 from ..models import Offer
 from ..places import canonical_city
-from ..textutil import classify_type, fold, parse_area, parse_date, parse_price
+from ..textutil import classify_type, fold, parse_area, parse_date, parse_price, parse_share
 
 NAME = "amw"
 BASE = "https://amw.com.pl/pl/nieruchomosci/przetargi-nieruchomosci"
@@ -71,6 +71,7 @@ def parse_detail(html: str, url: str, city: str) -> Offer | None:
         notice_url=url,
         photo_url=img,
         raw_title=title_text,
+        share=parse_share(text),
     )
 
 

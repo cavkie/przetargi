@@ -114,3 +114,9 @@ def test_run_cli_missing_executable_is_runtime_error(monkeypatch):
     monkeypatch.setattr(market, "_executable", lambda: "Z:/nonexistent/deweloperuch")
     with pytest.raises(RuntimeError):
         market.run_cli(["stats", "transactions", "gdansk"])
+
+
+def test_market_share_compares_whole_property():
+    offers = {"k": mk(start_price=250000, share="1/2")}
+    apply_market(offers, {}, cli=FakeCli(), today=TODAY)
+    assert round(offers["k"].market_gap_pct, 1) == round((500000 / 941136 - 1) * 100, 1)

@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 from ..http import PoliteClient
 from ..models import Offer
-from ..textutil import classify_type, fold, parse_area, parse_date, parse_price
+from ..textutil import classify_type, fold, parse_area, parse_date, parse_price, parse_share
 
 NAME = "um-gdansk"
 LIST_URL = "https://gdansk.pl/urzad-miejski/ogloszenia-o-przetargach,a,1439"
@@ -121,6 +121,7 @@ def _row_to_offer(row, nxt, lokal, auction_date, notice_url, stem) -> Offer | No
         notice_url=notice_url,
         photo_url=None,
         raw_title=loc[0] if loc else "",
+        share=parse_share(text),
     )
 
 

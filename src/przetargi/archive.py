@@ -11,7 +11,7 @@ from .textutil import normalise_address
 ARCHIVE_AFTER_DAYS = 14
 _MERGEABLE = (
     "source_id", "type", "city", "address", "area_m2", "start_price", "deposit",
-    "auction_date", "auction_kind", "notice_url", "photo_url", "raw_title",
+    "auction_date", "auction_kind", "notice_url", "photo_url", "raw_title", "share",
 )
 
 

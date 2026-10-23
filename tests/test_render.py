@@ -74,3 +74,8 @@ def test_non_http_links_dropped(tmp_path):
     bad = mk(notice_url="javascript:alert(1)//cloudgdansk.pdf", photo_url="data:image/svg+xml,x")
     (row,) = _data(_render(tmp_path, {"k": bad}))["offers"]
     assert row["notice_url"] is None and row["photo_url"] is None
+
+
+def test_share_in_row(tmp_path):
+    (row,) = _data(_render(tmp_path, {"k": mk(share="1/2", start_price=360000)}))["offers"]
+    assert row["share"] == "1/2" and row["price_per_m2"] == round(720000 / 94.47)

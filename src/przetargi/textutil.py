@@ -95,6 +95,23 @@ def classify_type(text: str) -> PropType | None:
     return None
 
 
+_SHARE = re.compile(
+    r"udzia\w*\s+(?:wynosz\w+\s+)?(\d+)\s*/\s*(\d+)"
+    r"(?=\s*(?:cz[eę][sś]ci\s+)?(?:w|we)\s+(?:lokal|nieruchomo|prawie do lokalu|w[lł]asno[sś]ciow|"
+    r"sp[oó][lł]dziel|domu|budynk))",
+    re.I,
+)
+
+
+def parse_share(text: str) -> str | None:
+    """"1/2" when a share of the property is sold; None for the usual share in common parts."""
+    t = re.sub(r"\s+", " ", text)
+    for m in _SHARE.finditer(t):
+        if not re.search(r"wsp[oó]ln", t[m.end():m.end() + 60], re.I):
+            return f"{int(m.group(1))}/{int(m.group(2))}"
+    return None
+
+
 def is_excluded_notice(title: str) -> bool:
     t = fold(title)
     return bool(

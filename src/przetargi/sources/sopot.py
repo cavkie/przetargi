@@ -20,6 +20,7 @@ from ..textutil import (
     parse_area,
     parse_date,
     parse_price,
+    parse_share,
 )
 
 NAME = "um-sopot"
@@ -116,6 +117,7 @@ def parse_article(article_json: str, attachment_text: str | None) -> Offer | Non
         notice_url=BASE + art["link"],
         photo_url=None,
         raw_title=title,
+        share=parse_share(full),
     )
 
 
@@ -156,6 +158,7 @@ def wykaz_offer(attachment_id: int, name: str, text: str) -> Offer | None:
         notice_url=f"{BASE}e,pobierz,get.html?id={attachment_id}",
         photo_url=None,
         raw_title=name,
+        share=parse_share(body),
     )
 
 

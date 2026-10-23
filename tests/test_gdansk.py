@@ -56,3 +56,18 @@ def test_gdansk_continuation_table_without_header():
     offers = table_offers([row, nxt], True, "2026-11-30", "https://x/c.pdf", "c")
     assert len(offers) == 1 and offers[0].start_price == 400000
     assert offers[0].auction_kind == "Przetarg ustny nieograniczony"
+
+
+def test_gdansk_fixture_flats_are_not_shares():
+    offers = parse_auction_pdf((FIX / "2026-10-26.pdf").read_bytes(), "https://x/n.pdf")
+    assert all(o.share is None for o in offers)
+
+
+def test_gdansk_share_row():
+    from przetargi.sources.gdansk import table_offers
+
+    row = ["1.", "Gdańsk – Oliwa\nul. Leśna 2 lokal nr 7\nI piętro", "Działka nr 1", "40,00 m2",
+           "100.000 zł", "10.000 zł", "Własność",
+           "Sprzedaż udziału wynoszącego 1/4 w lokalu mieszkalnym nr 7"]
+    (o,) = table_offers([row], True, "2026-11-30", "https://x/c.pdf", "c")
+    assert o.share == "1/4"
