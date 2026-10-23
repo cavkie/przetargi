@@ -49,8 +49,9 @@ class PoliteClient:
         rp = self._robots[origin]
         return rp is None or rp.can_fetch(USER_AGENT, url)
 
-    def get(self, url: str, **kwargs) -> httpx.Response:
-        if not self._allowed(url):
+    def get(self, url: str, api: bool = False, **kwargs) -> httpx.Response:
+        """api=True: a documented API whose usage policy allows our calls (robots.txt targets crawlers)."""
+        if not api and not self._allowed(url):
             raise RobotsDisallowed(url)
         self._wait(urlsplit(url).netloc)
         r = self._client.get(url, **kwargs)
