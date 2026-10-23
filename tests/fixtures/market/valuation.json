@@ -1,0 +1,58 @@
+{
+  "lat": 54.3935,
+  "lng": 18.6415,
+  "area_m2": 55.8,
+  "address": null,
+  "estimated_value": 941136.0,
+  "price_per_m2": 16806.0,
+  "radius_m": 500,
+  "period_months": 24,
+  "stats": {
+    "count": 132,
+    "median_price_per_m2": 17147.0,
+    "average_price_per_m2": 16884.0,
+    "min_price_per_m2": 12212.0,
+    "max_price_per_m2": 21401.0
+  },
+  "comparables_total": 132,
+  "comparables_omitted": 129,
+  "hint": "Pokazano 3 najbliższe z 132 transakcji porównawczych; więcej pokaże większy limit. Serwis może nie uwzględnić części ułamkowej powierzchni w wycenie.",
+  "comparables": [
+    {
+      "address": "Sucha 37",
+      "date": "2026-06-12",
+      "price": 1200026.0,
+      "area_m2": 65.95,
+      "price_per_m2": 18196.0,
+      "floor": 15,
+      "distance_m": 250.0,
+      "market": "secondary",
+      "building_slug": "sucha-37-gdansk",
+      "city_slug": "gdansk"
+    },
+    {
+      "address": "Sucha 27",
+      "date": "2025-09-17",
+      "price": 770007.0,
+      "area_m2": 61.36,
+      "price_per_m2": 12549.0,
+      "floor": 7,
+      "distance_m": 250.0,
+      "market": "secondary",
+      "building_slug": "sucha-27-gdansk",
+      "city_slug": "gdansk"
+    },
+    {
+      "address": "Sucha 37",
+      "date": "2025-03-06",
+      "price": 950016.0,
+      "area_m2": 66.01,
+      "price_per_m2": 14392.0,
+      "floor": 12,
+      "distance_m": 250.0,
+      "market": "secondary",
+      "building_slug": "sucha-37-gdansk",
+      "city_slug": "gdansk"
+    }
+  ]
+}

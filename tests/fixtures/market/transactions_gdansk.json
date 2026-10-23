@@ -1,0 +1,133 @@
+{
+  "city_slug": "gdansk",
+  "granularity": "month",
+  "total": 68,
+  "returned": 12,
+  "truncated": true,
+  "available_from": "2021-01",
+  "hint": "Pokazano ostatnie 12 z 68 okresów (dane od 2021-01); starsze pokaże większa wartość periods.",
+  "note": "Ostatnie miesiące są niepełne: transakcje trafiają do Rejestru Cen Nieruchomości z kilkumiesięcznym opóźnieniem, więc najnowsze okresy mają zaniżoną liczbę transakcji i mniej pewne ceny. Nie porównuj ich z pełnymi okresami.",
+  "stats_url": "https://deweloperuch.pl/statystyki/ceny-transakcyjne/mieszkania/gdansk",
+  "periods": [
+    {
+      "period": "2025-09",
+      "transactions": 508,
+      "median_price_per_m2": 13216.0,
+      "average_price_per_m2": 13911.0,
+      "median_area_m2": 48.9,
+      "average_area_m2": 51.6,
+      "median_price": 646135.0,
+      "average_price": 707988.0
+    },
+    {
+      "period": "2025-10",
+      "transactions": 393,
+      "median_price_per_m2": 12918.0,
+      "average_price_per_m2": 13828.0,
+      "median_area_m2": 49.6,
+      "average_area_m2": 53.2,
+      "median_price": 650000.0,
+      "average_price": 728023.0
+    },
+    {
+      "period": "2025-11",
+      "transactions": 362,
+      "median_price_per_m2": 13375.0,
+      "average_price_per_m2": 14131.0,
+      "median_area_m2": 47.1,
+      "average_area_m2": 50.4,
+      "median_price": 620000.0,
+      "average_price": 711248.0
+    },
+    {
+      "period": "2025-12",
+      "transactions": 383,
+      "median_price_per_m2": 13094.0,
+      "average_price_per_m2": 14138.0,
+      "median_area_m2": 48.9,
+      "average_area_m2": 52.3,
+      "median_price": 650000.0,
+      "average_price": 734361.0
+    },
+    {
+      "period": "2026-01",
+      "transactions": 388,
+      "median_price_per_m2": 13550.0,
+      "average_price_per_m2": 14114.0,
+      "median_area_m2": 48.6,
+      "average_area_m2": 53.0,
+      "median_price": 660000.0,
+      "average_price": 739908.0
+    },
+    {
+      "period": "2026-02",
+      "transactions": 364,
+      "median_price_per_m2": 13349.0,
+      "average_price_per_m2": 14222.0,
+      "median_area_m2": 48.1,
+      "average_area_m2": 51.8,
+      "median_price": 640000.0,
+      "average_price": 724723.0
+    },
+    {
+      "period": "2026-03",
+      "transactions": 413,
+      "median_price_per_m2": 13397.0,
+      "average_price_per_m2": 14178.0,
+      "median_area_m2": 48.0,
+      "average_area_m2": 51.7,
+      "median_price": 640000.0,
+      "average_price": 733295.0
+    },
+    {
+      "period": "2026-04",
+      "transactions": 429,
+      "median_price_per_m2": 13443.0,
+      "average_price_per_m2": 14262.0,
+      "median_area_m2": 47.6,
+      "average_area_m2": 50.5,
+      "median_price": 640000.0,
+      "average_price": 714960.0
+    },
+    {
+      "period": "2026-05",
+      "transactions": 403,
+      "median_price_per_m2": 13383.0,
+      "average_price_per_m2": 14190.0,
+      "median_area_m2": 47.5,
+      "average_area_m2": 51.8,
+      "median_price": 655000.0,
+      "average_price": 725595.0
+    },
+    {
+      "period": "2026-06",
+      "transactions": 457,
+      "median_price_per_m2": 13679.0,
+      "average_price_per_m2": 14646.0,
+      "median_area_m2": 48.9,
+      "average_area_m2": 53.0,
+      "median_price": 660000.0,
+      "average_price": 770398.0
+    },
+    {
+      "period": "2026-07",
+      "transactions": 468,
+      "median_price_per_m2": 13512.0,
+      "average_price_per_m2": 14097.0,
+      "median_area_m2": 46.4,
+      "average_area_m2": 50.5,
+      "median_price": 640000.0,
+      "average_price": 709346.0
+    },
+    {
+      "period": "2026-08",
+      "transactions": 99,
+      "median_price_per_m2": 13365.0,
+      "average_price_per_m2": 14482.0,
+      "median_area_m2": 47.0,
+      "average_area_m2": 50.3,
+      "median_price": 675000.0,
+      "average_price": 723636.0
+    }
+  ]
+}
