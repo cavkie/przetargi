@@ -1,14 +1,14 @@
 [
  {
-  "at": "2026-11-11 12:47",
-  "count": 0,
-  "error": "HTTPStatusError: Server error '500 Internal Server Error' for url 'https://download.cloudgdansk.pl/gdansk-pl/d/202609282580/ogloszenie-o-przetargach-nieograniczonych-planowanych-na-dzien-30-11-2026r-gazeta-wyborcza-z-dnia-23-09-2026r.pdf'\nFor more information check: https://developer.mozilla.org/en-",
-  "ok": false,
+  "at": "2026-11-12 13:29",
+  "count": 3,
+  "error": null,
+  "ok": true,
   "source": "um-gdansk",
   "warning": null
  },
  {
-  "at": "2026-11-11 12:47",
+  "at": "2026-11-12 13:30",
   "count": 5,
   "error": null,
   "ok": true,
@@ -16,7 +16,7 @@
   "warning": null
  },
  {
-  "at": "2026-11-11 12:47",
+  "at": "2026-11-12 13:30",
   "count": 6,
   "error": null,
   "ok": true,
@@ -24,7 +24,7 @@
   "warning": null
  },
  {
-  "at": "2026-11-11 12:47",
+  "at": "2026-11-12 13:30",
   "count": 0,
   "error": null,
   "ok": true,
@@ -32,7 +32,7 @@
   "warning": null
  },
  {
-  "at": "2026-11-11 12:47",
+  "at": "2026-11-12 13:30",
   "count": 0,
   "error": null,
   "ok": true,
